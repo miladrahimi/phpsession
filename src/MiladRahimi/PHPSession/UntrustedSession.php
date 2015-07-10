@@ -1,11 +1,11 @@
-<?php namespace Neatplex\PHPSession;
+<?php namespace MiladRahimi\PHPSession;
 
 /**
  * Class UntrustedSession
  *
  * UntrustedSession Exception will be thrown when the session is untrusted!
  *
- * @package Neatplex\PHPRouter
+ * @package MiladRahimi\PHPRouter
  *
  * @author Milad Rahimi <info@miladrahimi.com>
  */

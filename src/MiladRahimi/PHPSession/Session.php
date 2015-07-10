@@ -1,4 +1,4 @@
-<?php namespace Neatplex\PHPSession;
+<?php namespace MiladRahimi\PHPSession;
 
 /**
  * Class Session
@@ -6,7 +6,7 @@
  * Session class is the main class which developers must interactive with to
  * dispatch all website routes.
  *
- * @package Neatplex\PHPRouter
+ * @package MiladRahimi\PHPRouter
  *
  * @author Milad Rahimi <info@miladrahimi.com>
  */

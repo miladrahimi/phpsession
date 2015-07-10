@@ -14,23 +14,19 @@ If you are not familiar with Composer, The article
 can be useful.
 After installing Composer, go to your project directory and run following command there:
 ```
-php composer.phar require neatplex/phpsession
+php composer.phar require miladrahimi/phpsession
 ```
 Or if you have `composer.json` file already in your application,
 you may add this package to your application requirements
 and update your dependencies:
 ```
 "require": {
-    "neatplex/phpsession": "dev-master"
+    "miladrahimi/phpsession": "dev-master"
 }
 ```
 ```
 php composer.phar update
 ```
-#### Using VendorLoader
-If you don't use Composer you may use [VendorLoader](https://github.com/miladrahimi/vendorloader).
-Copy `src` directory content in your application vendor directory,
-then include the `vendorloader.php` in your application.
 #### Manually
 You can use your own autoloader as long as it follows [PSR-0](http://www.php-fig.org/psr/psr-0) or
 [PSR-4](http://www.php-fig.org/psr/psr-4) standards.
@@ -39,7 +35,7 @@ In this case you can put `src` directory content in your vendor directory.
 ### Getting Started
 It's so easy to work with!
 ```
-use Neatplex\PHPSession\Session;
+use MiladRahimi\PHPSession\Session;
 
 $session = Session::getInstance();
 $session->set("Singer", "Pink Floyd");
@@ -53,7 +49,7 @@ In default, the session data is permanent.
 For security reasons, you should define lifetime for your session.
 PHPSession would expire the data when their lifetime had finished.
 ```
-use Neatplex\PHPSession\Session;
+use MiladRahimi\PHPSession\Session;
 
 $session = Session::getInstance();
 $session->setLifeTime(10); // 10 minutes lifetime!
@@ -69,8 +65,8 @@ For security reasons, PHPSession holds user IP and Agent (web browser tool).
 It always check this info in any `get()` call to make sure current user is the real session owner.
 `UntrustedSession` exception will thrown if the user is suspicious.
 ```
-use Neatplex\PHPSession\Session;
-use Neatplex\PHPSession\UntrustedSession;
+use MiladRahimi\PHPSession\Session;
+use MiladRahimi\PHPSession\UntrustedSession;
 
 $session = Session::getInstance();
 $session->set("Singer", "Selena Gomez");
@@ -105,8 +101,8 @@ I will appreciate it if you share it with us!
 *	[Milad Rahimi](http://miladrahimi.com)
 
 ## Official homepage
-*   [PHPSession](http://phpsession.neatplex.com) (Soon!)
+*   [PHPSession](http://miladrahimi.github.io/phpsession)
 
 ## License
-PHPSession is created by [Neatplex](http://neatplex.com)
+PHPSession is created by [MiladRahimi](http://miladrahimi.com)
 and released under the [MIT License](http://opensource.org/licenses/mit-license.php).
