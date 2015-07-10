@@ -33,6 +33,7 @@ class Session
     {
         $this->start();
         $this->checkExpiration();
+        $this->setLifeTime($this->lifetime);
         if (!$this->isInitialized()) {
             $this->refresh();
         }
@@ -50,7 +51,7 @@ class Session
     private function checkExpiration()
     {
         $this->start();
-        if (isset($_SESSION["X_NS_ET"]) && $_SESSION["X_NS_ET"] != 0 && ((int)$_SESSION["X_NS_ET"] < time())) {
+        if (isset($_SESSION["X_MR_ET"]) && $_SESSION["X_MR_ET"] != 0 && ((int)$_SESSION["X_MR_ET"] < time())) {
             $this->clear();
             $this->start();
         }
@@ -64,6 +65,7 @@ class Session
         $this->start();
         session_unset();
         session_destroy();
+        $_SESSION = array();
     }
 
     /**
@@ -74,7 +76,7 @@ class Session
     private function isInitialized()
     {
         $this->start();
-        if (isset($_SESSION["X_NS_UA"]) && isset($_SESSION["X_NS_IP"]))
+        if (isset($_SESSION["X_MR_UA"]) && isset($_SESSION["X_MR_IP"]))
             return true;
         return false;
     }
@@ -86,9 +88,9 @@ class Session
     {
         $this->start();
         session_regenerate_id();
-        $_SESSION["X_NS_UA"] = $_SERVER["HTTP_USER_AGENT"];
-        $_SESSION["X_NS_IP"] = $_SERVER["REMOTE_ADDR"];
-        $_SESSION["X_NS_ET"] = (time() + $this->lifetime * 60) * (int)((bool)$this->lifetime);
+        $_SESSION["X_MR_UA"] = $_SERVER["HTTP_USER_AGENT"];
+        $_SESSION["X_MR_IP"] = $_SERVER["REMOTE_ADDR"];
+        $_SESSION["X_MR_ET"] = (time() + $this->lifetime * 60) * (int)((bool)$this->lifetime);
     }
 
     /**
@@ -107,12 +109,12 @@ class Session
      * @param mixed $key
      * @param mixed $value
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function set($key, $value)
     {
         if (!is_scalar($key))
-            throw new \InvalidArgumentException("Invalid key type");
+            throw new InvalidArgumentException("Invalid key type");
         $_SESSION[$key] = $value;
     }
 
@@ -131,7 +133,7 @@ class Session
         if (is_null($key))
             return $_SESSION;
         if (!is_scalar($key))
-            throw new \InvalidArgumentException("Invalid key type");
+            throw new InvalidArgumentException("Invalid key type");
         if (isset($_SESSION[$key]))
             return $_SESSION[$key];
         return null;
@@ -145,9 +147,9 @@ class Session
      */
     private function isTrusted()
     {
-        if (!isset($_SESSION["X_NS_UA"]) || $_SESSION["X_NS_UA"] != $_SERVER["HTTP_USER_AGENT"])
+        if (!isset($_SESSION["X_MR_UA"]) || $_SESSION["X_MR_UA"] != $_SERVER["HTTP_USER_AGENT"])
             return false;
-        if (!isset($_SESSION["X_NS_IP"]) || $_SESSION["X_NS_IP"] != $_SERVER["REMOTE_ADDR"])
+        if (!isset($_SESSION["X_MR_IP"]) || $_SESSION["X_MR_IP"] != $_SERVER["REMOTE_ADDR"])
             return false;
         return true;
     }
@@ -161,13 +163,16 @@ class Session
     }
 
     /**
-     * @param int $minutes
+     * @param $minutes
      */
     public function setLifeTime($minutes)
     {
         if (!is_int($minutes))
-            throw new \InvalidArgumentException("Invalid lifetime time value");
-        $this->lifetime = $minutes;
-        $_SESSION["X_NS_ET"] = (time() + $this->lifetime * 60) * (int)(bool)$this->lifetime;
+            throw new InvalidArgumentException("Invalid lifetime time value");
+        if($this->lifetime != $minutes) {
+            $this->lifetime = $minutes;
+            $_SESSION["X_MR_ET"] = (time() + $this->lifetime * 60) * (int)(bool)$this->lifetime;
+        }
     }
+
 }

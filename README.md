@@ -2,7 +2,7 @@
 Free PHP session tools for neat and powerful projects!
 
 ## Documentation
-PHPSession is a tiny package for using sessions in Object Oriented approach.
+PHPSession is a tiny package for using sessions in Object Oriented and more secured approach.
 There is a singleton class named `Session` which you interact with to access an manipulate sessions.
 
 
@@ -41,6 +41,7 @@ $session = Session::getInstance();
 $session->set("Singer", "Pink Floyd");
 echo $session->get("Singer");
 ```
+
 *   Because of singleton pattern, you cannot instantiate `Session` class with `new` keyword.
 *   The `get()` method will return `null` whenever the value doesn't exist.
 
@@ -54,11 +55,10 @@ use MiladRahimi\PHPSession\Session;
 $session = Session::getInstance();
 $session->setLifeTime(10); // 10 minutes lifetime!
 $session->set("Singer", "Bon Jovi");
-echo $session->get("Singer");
 ```
 *   Lifetime unit is minute.
 *   0 minute lifetime means unlimited time (it's default value).
-*   Whenever you set lifetime its lifetime starts.
+*   Whenever you change lifetime its lifetime starts to get spent.
 
 ### UntrustedSession Exception
 For security reasons, PHPSession holds user IP and Agent (web browser tool).
@@ -85,7 +85,7 @@ To prevent Fixation Session Attack you should refresh sessions every successful 
 $session->refresh();
 ```
 
-### Session Hijacking
+### Session Hijacking and Fixation
 PHPSessions is tiny package right now.
 It will be better next versions, I promise!
 There are some security considerations in this version.
@@ -94,7 +94,7 @@ It prevent simple hijackings with holding user info (IP and agent).
 In person, I think it's user job to prevent other threats.
 But your a able to implement your security approaches with PHPSession,
 if you see it like PHP native APIs.
-IF you have a idea to make PHPSession more secure,
+If you have an idea to make PHPSession more secure,
 I will appreciate it if you share it with us!
 
 ## Contributors
@@ -104,5 +104,4 @@ I will appreciate it if you share it with us!
 *   [PHPSession](http://miladrahimi.github.io/phpsession)
 
 ## License
-PHPSession is created by [MiladRahimi](http://miladrahimi.com)
-and released under the [MIT License](http://opensource.org/licenses/mit-license.php).
+PHPSession is released under the [MIT License](http://opensource.org/licenses/mit-license.php).
