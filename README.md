@@ -3,7 +3,7 @@ Free PHP session tools for neat and powerful projects!
 
 ## Documentation
 PHPSession is a tiny package for using sessions in Object Oriented and more secured approach.
-There is a singleton class named `Session` which you interact with to access an manipulate sessions.
+There is a class named `Session` which you interact with to access an manipulate sessions.
 
 
 ### Installation
@@ -37,12 +37,12 @@ It's so easy to work with!
 ```
 use MiladRahimi\PHPSession\Session;
 
-$session = Session::getInstance();
+$session = new Session();
 $session->set("Singer", "Pink Floyd");
 echo $session->get("Singer");
 ```
 
-*   Because of singleton pattern, you cannot instantiate `Session` class with `new` keyword.
+*   Because of being compatible with dependency injection, new version is not based on Single Pattern.
 *   The `get()` method will return `null` whenever the value doesn't exist.
 
 ### Expiration
@@ -52,7 +52,7 @@ PHPSession would expire the data when their lifetime had finished.
 ```
 use MiladRahimi\PHPSession\Session;
 
-$session = Session::getInstance();
+$session = new Session();
 $session->setLifeTime(10); // 10 minutes lifetime!
 $session->set("Singer", "Bon Jovi");
 ```
@@ -68,7 +68,7 @@ It always check this info in any `get()` call to make sure current user is the r
 use MiladRahimi\PHPSession\Session;
 use MiladRahimi\PHPSession\UntrustedSession;
 
-$session = Session::getInstance();
+$session = new Session();
 $session->set("Singer", "Selena Gomez");
 try {
     echo $session->get("Singer");

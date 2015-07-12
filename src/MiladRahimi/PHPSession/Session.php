@@ -12,12 +12,6 @@
  */
 class Session
 {
-    /**
-     * Singleton instance
-     *
-     * @var Session
-     */
-    private static $instance;
 
     /**
      * Expiry time (minutes)
@@ -29,7 +23,7 @@ class Session
     /**
      * Construct
      */
-    protected function __construct()
+    public function __construct()
     {
         $this->start();
         $this->checkExpiration();
@@ -91,16 +85,6 @@ class Session
         $_SESSION["X_MR_UA"] = $_SERVER["HTTP_USER_AGENT"];
         $_SESSION["X_MR_IP"] = $_SERVER["REMOTE_ADDR"];
         $_SESSION["X_MR_ET"] = (time() + $this->lifetime * 60) * (int)((bool)$this->lifetime);
-    }
-
-    /**
-     * @return Session
-     */
-    public static function getInstance()
-    {
-        if (!self::$instance instanceof Session)
-            self::$instance = new Session();
-        return self::$instance;
     }
 
     /**
