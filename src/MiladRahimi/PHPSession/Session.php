@@ -2,15 +2,13 @@
 
 /**
  * Class Session
- *
  * Session class is the main class which developers must interactive with to
  * dispatch all website routes.
  *
  * @package MiladRahimi\PHPRouter
- *
  * @author Milad Rahimi <info@miladrahimi.com>
  */
-class Session
+class Session implements SessionInterface
 {
 
     /**
@@ -90,36 +88,36 @@ class Session
     /**
      * Set key/value pair data in session
      *
-     * @param mixed $key
-     * @param mixed $value
-     *
+     * @param string $name : Information name
+     * @param mixed $value : Information value
      * @throws InvalidArgumentException
      */
-    public function set($key, $value)
+    public function set($name, $value)
     {
-        if (!is_scalar($key))
-            throw new InvalidArgumentException("Invalid key type");
-        $_SESSION[$key] = $value;
+        if (!isset($name) || !is_scalar($name))
+            throw new InvalidArgumentException("Name must be a scalar value");
+        if (!isset($value))
+            throw new InvalidArgumentException("Value must be set");
+        $_SESSION[$name] = $value;
     }
 
     /**
-     * Get session value or array of session
+     * Get a value in the session or array of values
      *
-     * @param mixed $key
-     * @return mixed
-     *
+     * @param string|null $name : Information name
+     * @return mixed : Information value
      * @throws UntrustedSession
      */
-    public function get($key = null)
+    public function get($name = null)
     {
         if (!$this->isTrusted())
             throw new UntrustedSession();
-        if (is_null($key))
+        if (is_null($name))
             return $_SESSION;
-        if (!is_scalar($key))
-            throw new InvalidArgumentException("Invalid key type");
-        if (isset($_SESSION[$key]))
-            return $_SESSION[$key];
+        if (!is_scalar($name))
+            throw new InvalidArgumentException("Name must be a scalar value");
+        if (isset($_SESSION[$name]))
+            return $_SESSION[$name];
         return null;
     }
 
@@ -147,13 +145,13 @@ class Session
     }
 
     /**
-     * @param $minutes
+     * @param int $minutes : Lifetime minutes
      */
-    public function setLifeTime($minutes)
+    public function setLifeTime($minutes = 0)
     {
         if (!is_int($minutes))
-            throw new InvalidArgumentException("Invalid lifetime time value");
-        if($this->lifetime != $minutes) {
+            throw new InvalidArgumentException("Minutes must be an integer value");
+        if ($this->lifetime != $minutes) {
             $this->lifetime = $minutes;
             $_SESSION["X_MR_ET"] = (time() + $this->lifetime * 60) * (int)(bool)$this->lifetime;
         }
