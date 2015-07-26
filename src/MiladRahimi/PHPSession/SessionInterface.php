@@ -2,7 +2,6 @@
 
 /**
  * Interface SessionInterface
- * Session classes must have `set()` and `get()` methods to manipulate values
  *
  * @package MiladRahimi\PHPSession
  * @author Milad Rahimi <info@miladrahimi.com>

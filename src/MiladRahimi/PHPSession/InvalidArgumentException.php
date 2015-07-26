@@ -2,7 +2,6 @@
 
 /**
  * Class InvalidArgumentException
- * Specified InvalidArgumentException exception for the package
  *
  * @package MiladRahimi\PHPSession
  * @author Milad Rahimi <info@miladrahimi.com>
