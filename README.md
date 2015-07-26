@@ -100,7 +100,7 @@ I will appreciate it if you share it with us!
 ## Contributors
 *	[Milad Rahimi](http://miladrahimi.com)
 
-## Official homepage
+## Homepage
 *   [PHPSession](http://miladrahimi.github.io/phpsession)
 
 ## License
