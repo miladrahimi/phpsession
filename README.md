@@ -14,18 +14,18 @@ If you are not familiar with Composer, The article
 can be useful.
 After installing Composer, go to your project directory and run following command there:
 ```
-php composer.phar require miladrahimi/phpsession
+composer require miladrahimi/phpsession
 ```
 Or if you have `composer.json` file already in your application,
 you may add this package to your application requirements
 and update your dependencies:
 ```
 "require": {
-    "miladrahimi/phpsession": "dev-master"
+    "miladrahimi/phpsession": "~1.4"
 }
 ```
 ```
-php composer.phar update
+composer update
 ```
 #### Manually
 You can use your own autoloader as long as it follows [PSR-0](http://www.php-fig.org/psr/psr-0) or
